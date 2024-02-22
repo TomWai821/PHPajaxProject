@@ -32,7 +32,6 @@
                 {
                     if(this.status == 200)
                     {
-                        console.log(this.responseText);
                         json = JSON.parse(this.responseText);
                         output = '';
                         output += "ID:" + json.id + "<br>Name:" + json.name + "<br>Whatever:" + json.whatever
@@ -50,20 +49,20 @@
 
                 xhr.onload = function()
                 {
-                    console.log(this.responseText);
                     const users = JSON.parse(this.responseText);
-                    output = "<table>"
+                    var output = "<table>"
                                 + " <tr>"
                                     + "<th>ID</th>" 
                                     + "<th>Name</th>"
                                     + "<th>Whatevr</th>"
-                                "</tr>";
+                                + "</tr>";
                     for(var i in users)
                     {
-                        output += "<tr>"
-                                    + "<td>"+users[i].id+"</td>"
-                                    + "<td>"+users[i].name+"</td>"
-                                    + "<td>"+users[i].whatever+"</td>"
+                        output += 
+                                "<tr>"
+                                    + "<td>"+ users[i].id +"</td>"
+                                    + "<td>"+ users[i].name +"</td>"
+                                    + "<td>"+ users[i].whatever +"</td>"
                                 + "</tr>";
                     }
                         output += "</table>";
