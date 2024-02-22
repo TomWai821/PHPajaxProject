@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, inital-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Ajax 1 - Text File</title>
+        <title>Ajax 1 - Fetch Text File</title>
     </head>
 
     <body>
@@ -21,20 +21,19 @@
                 var xhr = new XMLHttpRequest();
                 
                 // Open - method(GET/POST/PUT/DELETE), URL/file, async(true/false)
-                xhr.open('GET','hi2.txt', true);
+                xhr.open('GET','hi1.txt', true);
                 
                 /*
                     xhr.onload = function()
                     {
                         
-                        if(this.status== 200)
+                        if(this.status == 200)
                         {
                             console.log(this.responseText);
                         }
                     }
                 */
 
-                // Optional - used for loaders
                 xhr.onprogress = function()
                 {
                     
@@ -45,6 +44,7 @@
                     
                 }
 
+                // Optional - used for loaders
                 xhr.onload = function()
                 {
                     if(this.status == 200)

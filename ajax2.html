@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, inital-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Ajax 2 - Fetch Local Json</title>
+    </head>
+
+    <body>
+        <button id="btn">getUser</button>
+        <button id="btn-users">getUsers</button>
+        <br>
+        <h1>User:</h1>
+        <div id="text-user"></div>
+
+        <h1>Users:</h1>
+        <div id="text-users"></div>
+        <script>
+            var getUser = document.getElementById('btn').addEventListener('click', onClick);
+            var getUsers = document.getElementById('btn-users').addEventListener('click', Loadtext);
+            var json;
+            var output;
+            
+            function onClick()
+            {
+                var xhr = new XMLHttpRequest();
+
+                xhr.open('GET', 'User.json', true);
+
+                xhr.onload = function()
+                {
+                    if(this.status == 200)
+                    {
+                        console.log(this.responseText);
+                        json = JSON.parse(this.responseText);
+                        output = '';
+                        output += "ID:" + json.id + "<br>Name:" + json.name + "<br>Whatever:" + json.whatever
+                        document.getElementById('text-user').innerHTML = output;
+                    }
+                };
+
+                xhr.send();
+            }
+
+            function Loadtext()
+            {
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', 'Users.json', true);
+
+                xhr.onload = function()
+                {
+                    console.log(this.responseText);
+                    const users = JSON.parse(this.responseText);
+                    output = "<table>"
+                                + " <tr>"
+                                    + "<th>ID</th>" 
+                                    + "<th>Name</th>"
+                                    + "<th>Whatevr</th>"
+                                "</tr>";
+                    for(var i in users)
+                    {
+                        output += "<tr>"
+                                    + "<td>"+users[i].id+"</td>"
+                                    + "<td>"+users[i].name+"</td>"
+                                    + "<td>"+users[i].whatever+"</td>"
+                                + "</tr>";
+                    }
+                        output += "</table>";
+                    document.getElementById('text-users').innerHTML = output;
+                }
+
+                xhr.send();
+            }
+        </script>
+    </body>
+</html>
