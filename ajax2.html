@@ -33,8 +33,10 @@
                     if(this.status == 200)
                     {
                         json = JSON.parse(this.responseText);
-                        output = '';
-                        output += "ID:" + json.id + "<br>Name:" + json.name + "<br>Whatever:" + json.whatever
+                        id = json.id;
+                        name = json.name;
+                        whatever = json.whatever;
+                        output = "ID:" + id + "<br>Name:" + name + "<br>Whatever:" + whatever;
                         document.getElementById('text-user').innerHTML = output;
                     }
                 };
@@ -49,24 +51,27 @@
 
                 xhr.onload = function()
                 {
-                    const users = JSON.parse(this.responseText);
-                    var output = "<table>"
-                                + " <tr>"
-                                    + "<th>ID</th>" 
-                                    + "<th>Name</th>"
-                                    + "<th>Whatevr</th>"
-                                + "</tr>";
-                    for(var i in users)
+                    if(this.status == 200)
                     {
-                        output += 
-                                "<tr>"
-                                    + "<td>"+ users[i].id +"</td>"
-                                    + "<td>"+ users[i].name +"</td>"
-                                    + "<td>"+ users[i].whatever +"</td>"
-                                + "</tr>";
+                        const users = JSON.parse(this.responseText);
+                        var output = "<table>"
+                                    + " <tr>"
+                                        + "<th>ID</th>" 
+                                        + "<th>Name</th>"
+                                        + "<th>Whatevr</th>"
+                                    + "</tr>";
+                        for(var i in users)
+                        {
+                            output += 
+                                    "<tr>"
+                                        + "<td>"+ users[i].id +"</td>"
+                                        + "<td>"+ users[i].name +"</td>"
+                                        + "<td>"+ users[i].whatever +"</td>"
+                                    + "</tr>";
+                        }
+                            output += "</table>";
+                        document.getElementById('text-users').innerHTML = output;
                     }
-                        output += "</table>";
-                    document.getElementById('text-users').innerHTML = output;
                 }
 
                 xhr.send();

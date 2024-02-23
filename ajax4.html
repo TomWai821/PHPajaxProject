@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, inital-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Ajax 4 - AJAX & PHP Forms</title>
+    </head>
+
+    <body>
+        <button id="btn">Get Name</button>
+        <hr>
+
+        <h1>GET FORM</h1>
+        <form action="process.php" method="GET">
+            <input type="text" name="name">
+            <input type="submit" name="submit" value="submit"/>
+        </form>
+
+        <h1>AJAX GET FORM</h1>
+        <form id="getForm">
+            <input type="text" name="name" id="name-ajax"/>
+            <input type="submit" name="submit" value="submit"/>
+        </form>
+
+        <hr>
+        <h1>POST FORM</h1>
+        <form action="process.php" method="POST">
+            <input type="text" name="name">
+            <input type="submit" name="submit" value="submit"/>
+        </form>
+
+        <h1>AJAX POST FORM</h1>
+        <form id="setForm">
+            <input type="text" name="name" id="setName-ajax">
+            <input type="submit" name="submit" value="submit"/>
+        </form>
+
+        <script>
+            document.getElementById('btn').addEventListener('click', onClick);
+            document.getElementById('getForm').addEventListener('submit', onClick);
+            document.getElementById('setForm').addEventListener('submit', onSet);
+
+            function onClick(e) 
+            {
+                e.preventDefault();
+
+                let name = document.getElementById('name-ajax').value;
+                let paramas = "name=" + name;
+
+                let xhr = new XMLHttpRequest();
+
+                xhr.open('GET', 'process.php?'+ paramas, true);
+
+                xhr.onload = function()
+                {
+                    if(this.status == 200)
+                    {
+                        console.log(this.responseText);
+                    }
+                }
+
+                xhr.send();
+            }
+
+            function onSet(e)
+            {
+                e.preventDefault();
+
+                let name = document.getElementById('setName-ajax').value;
+                let paramas = "name=" + name;
+
+                let xhr = new XMLHttpRequest();
+
+                xhr.open('POST', 'process.php', true);
+                xhr.setRequestHeader('content-type','application/x-www-form-urlencoded');
+
+                xhr.onload = function()
+                {
+                    if(this.status == 200)
+                    {
+                        console.log(this.responseText)
+                    }
+                }
+
+                xhr.send(paramas);
+            }
+        </script>
+    </body>
+</html>
